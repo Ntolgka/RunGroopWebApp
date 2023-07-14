@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RunGroopWebApp.Models
 {
-    public class RacesModel
+    public class RaceModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
