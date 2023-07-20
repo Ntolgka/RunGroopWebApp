@@ -4,16 +4,20 @@ using RunGroopWebApp.Data;
 using RunGroopWebApp.Interfaces;
 using RunGroopWebApp.Models;
 using RunGroopWebApp.Repository;
+using RunGroopWebApp.Services;
+using RunGroopWebApp.ViewModels;
 
 namespace RunGroopWebApp.Controllers
 {
     public class RaceController : Controller
     {
         private readonly IRaceRepository _raceRepository;
+        private readonly IPhotoService _photoService;
 
-        public RaceController(IRaceRepository raceRepository)
+        public RaceController(IRaceRepository raceRepository, IPhotoService photoService)
         {
             _raceRepository = raceRepository;
+            _photoService = photoService;
         }
 
         public async Task<IActionResult> Index()
@@ -34,15 +38,32 @@ namespace RunGroopWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(RaceModel race)
+        public async Task<IActionResult> Create(CreateClubViewModel raceVM)
         {
             if (ModelState.IsValid)
             {
+                var result = await _photoService.AddPhotoAsync(raceVM.Image);
+
+                var race = new RaceModel
+                {
+                    Title = raceVM.Title,
+                    Description = raceVM.Description,
+                    Image = result.Url.ToString(),
+                    Address = new AddressModel
+                    {
+                        Street = raceVM.Address.Street,
+                        City = raceVM.Address.City,
+                        State = raceVM.Address.State
+                    }
+                };
                 _raceRepository.Create(race);
                 return RedirectToAction("Index");
             }
-            return View(race);
-
+            else
+            {
+                ModelState.AddModelError("", "Something went wrong");
+            }
+            return View(raceVM);
         }
     }
 }
