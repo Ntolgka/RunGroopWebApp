@@ -52,5 +52,44 @@ namespace RunGroopWebApp.Controllers
             TempData["Error"] = "Wrong credentials.";
             return View(loginVM);
         }
+
+        public IActionResult Register()
+        {
+            var response = new RegisterViewModel();
+            return View(response);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel registerVM)
+        {
+            if (!ModelState.IsValid) return View(registerVM);
+
+            var user = await _userManager.FindByEmailAsync(registerVM.EmailAddress);
+            if (user != null)
+            {
+                TempData["Error"] = "Email already exists.";
+                return View(registerVM);
+            }
+
+            var newUser = new AppUserModel() 
+            { 
+                UserName = registerVM.EmailAddress, 
+                Email = registerVM.EmailAddress
+            };
+            var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
+
+            if(newUserResponse.Succeeded)
+                await _userManager.AddToRoleAsync(newUser, "User");
+
+            return RedirectToAction("Login");
+            
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
+        }
     }
+    
 }

@@ -32,9 +32,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
-                    <button class="bg-success border-2 rounded">
-                        <a class="nav-link text-dark text-white fw-bold" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
-                    </button>
+                    <div class="">
+                        <button class="bg-success border-2 rounded">
+                            <a class="nav-link text-white fw-bold" style="width:100px" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                        </button>
+                        <button class="border-2 rounded" style="background-color:darkgreen">
+                            <a class="nav-link text-white fw-bold" style="width:100px" asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+                        </button>
+                    </div>
+                    
                 </div>
             </div>
         </nav>
