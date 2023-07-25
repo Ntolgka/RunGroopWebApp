@@ -80,15 +80,15 @@ namespace RunGroopWebApp.Controllers
             if(newUserResponse.Succeeded)
                 await _userManager.AddToRoleAsync(newUser, "User");
 
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "Account");
             
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "Account");
         }
     }
     
