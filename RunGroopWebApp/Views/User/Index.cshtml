@@ -5,33 +5,32 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <table class="table table-hover align-items-center table-borderless">
+                <h1 class="mb-4 text-center"> Runners </h1>
+                
+                <table class="table table-hover align-items-center table-borderless table-striped shadow-lg">
                     <tbody>
                         @foreach (var user in Model)
                         {
                             <tr class="bg-white">
-                                <th scope="row">
+                                <th scope="row" style="height:100px; width:33%">
                                     <div class="media align-items-center">
                                         <div class="media-body">
-                                            <span class="h6 mb-0">@user.UserName</span>
+                                            <img src="@user.ProfileImageUrl" class="avatar" style="width:100px">
+                                            <span class="h6 ml-3">@user.UserName</span>
                                         </div>
                                     </div>
                                 </th>
-                                <td>
+                                <td class="align-middle text-center" style="width:33%">
                                     <a class="btn btn-outline-primary" asp-controller="User" asp-action="Detail" asp-route-id="@user.Id">
                                         View Profile
                                     </a>
                                 </td>
-
-                                @{
-                                    var mileage = user.Mileage == null ? "?" : user.Mileage.ToString();
-                                    var pace = user.Pace == null ? "?" : user.Mileage.ToString();
-                                }
-                                <td>@mileage mile at @pace mph</td>
-                            </tr>
-                            <tr class="table-divider">
-                                <th></th>
-                                <td></td>
+                                <td class="align-middle text-center" style="width:33%">
+                                    <div class="media-body row">
+                                        <span class="h6 mb-0">Mileage: @user.Mileage</span>
+                                        <span class="h6 mb-0">Pace: @user.Pace</span>
+                                    </div>
+                                </td>
                             </tr>
                         }
                     </tbody>
