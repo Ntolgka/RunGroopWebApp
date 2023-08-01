@@ -72,15 +72,22 @@ namespace RunGroopWebApp.Controllers
 
             var newUser = new AppUserModel() 
             { 
-                UserName = registerVM.EmailAddress, 
+                UserName = registerVM.EmailAddress.Split('@')[0], 
                 Email = registerVM.EmailAddress
             };
             var newUserResponse = await _userManager.CreateAsync(newUser, registerVM.Password);
 
             if(newUserResponse.Succeeded)
+            {
                 await _userManager.AddToRoleAsync(newUser, "User");
-
-            return RedirectToAction("Login", "Account");
+                return RedirectToAction("Login", "Account");
+            }
+                
+            else
+            {
+                TempData["Error"] = "Inappropriate email or password.";
+                return View(registerVM);
+            }
             
         }
 

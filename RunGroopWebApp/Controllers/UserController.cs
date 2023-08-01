@@ -22,6 +22,9 @@ namespace RunGroopWebApp.Controllers
                 var userVM = new UserViewModel()
                 {
                     Id = user.Id,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    AboutMe = user.AboutMe,
                     UserName = user.UserName,
                     Pace = user.Pace,
                     Mileage = user.Mileage,
@@ -39,8 +42,12 @@ namespace RunGroopWebApp.Controllers
             var userDetailVM = new UserDetailViewModel()  
             {   
                 Id = user.Id,
+                Name = user.Name,
+                Surname = user.Surname,
+                AboutMe = user.AboutMe,
                 UserName = user.UserName,
                 Pace = user.Pace,
+                ProfileImageUrl = user.ProfileImageUrl,
                 Mileage = user.Mileage
             };
             return View(userDetailVM);

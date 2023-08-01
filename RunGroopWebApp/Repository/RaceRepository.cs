@@ -52,6 +52,11 @@ namespace RunGroopWebApp.Repository
             return await _context.Races.Include(i => i.Address).AsNoTracking().FirstOrDefaultAsync(i => i.Id == id);
         }
 
+        public bool Exists(string title, string description)
+        {
+            return _context.Races.Any(r => r.Title == title && r.Description == description);
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

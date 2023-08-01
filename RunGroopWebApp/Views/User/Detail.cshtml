@@ -3,63 +3,47 @@
 
 <div class="container">
 
-    <h1 class="my-4"> Page Heading 
-      <small>Secondary Text</small>
+    <h1 class="my-4">
+        @Model.UserName
     </h1>
 
-    <div class="row">
+    <div class="d-flex">
 
-        <div>
-           @*<img class="img-fluid" src="@Model.Image" alt=""*@
+        <div class="col-md-3">
+            <img class="img-fluid"  src="@Model.ProfileImageUrl" alt="" />
         </div>
 
-        <div class="col-md-4">
-            <h3 class="my-3">@Model.Mileage</h3>
-            <p>@Model.Pace</p>
-            <h3 class="my-3">Location</h3>
-            <ul>
-                @*<li>@Model.Address.City</li>
-                <li>@Model.Address.State</li>
-                <li>@Model.ClubCategory</li>*@
-            </ul>
+        <div class="mx-5">
+            @if (Model.Name != null || Model.Surname != null)
+            {
+                <h3 class="my-3">
+                    Name:
+                    <small>@Model.Name</small>
+                </h3>
+                <h3 class="my-3">
+                    Surname:
+                    <small>@Model.Surname</small>
+                </h3>
+            }
+            
+            <h3 class="my-3">
+                Mileage:
+                <small>@Model.Mileage</small>
+            </h3>
+            <h3 class="my-3">
+                Pace:
+                <small>@Model.Pace</small>
+            </h3>
         </div>
     </div>
-
-    <h3 class="my-4">Related Projects</h3>
-
-    <div class="row">
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://placehold.co/500x300" alt="" />
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://placehold.co/500x300" alt="" />
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://placehold.co/500x300" alt="" />
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://placehold.co/500x300" alt="" />
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://placehold.co/500x300" alt="" />
-            </a>
-        </div>
-
+    <hr />
+    <div>
+        <h3 class="my-3">
+            About Me
+        </h3>
+        <h5>
+            @Model.AboutMe
+        </h5>
     </div>
-
 
 </div>

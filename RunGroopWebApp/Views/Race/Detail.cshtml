@@ -10,8 +10,7 @@
 
     <!-- Portfolio Item Heading -->
     <h1 class="my-4">
-        Page Heading
-        <small>Secondary Text</small>
+        Race Information
     </h1>
 
     <!-- Portfolio Item Row -->
@@ -24,47 +23,23 @@
         <div class="col-md-4">
             <h3 class="my-3">@Model.Title</h3>
             <p> @Model.Description </p>
+            <hr />
             <h3 class="my-3">Location</h3>
             <ul>
-                <li>@Model.Address.City</li>
-                <li>@Model.Address.State</li>
-                <li>@Model.RaceCategory</li>
+                <li>
+                    <span class="fw-bold">City: </span>@Model.Address.City
+               </li>
+                <li> 
+                    <span class="fw-bold">State: </span>@Model.Address.State
+                </li>
             </ul>
+            <hr />
+            <h3 class="my-3">Category</h3>
+            <p class="my-3">@Model.RaceCategory</p>
         </div>
-
     </div>
     <!-- /.row -->
     <!-- Related Projects Row -->
-    <h3 class="my-4">Related Projects</h3>
-
-    <div class="row">
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-        <div class="col-md-3 col-sm-6 mb-4">
-            <a href="#">
-                <img class="img-fluid" src="https://via.placeholder.com/500x300" alt="">
-            </a>
-        </div>
-
-    </div>
-    <!-- /.row -->
 
 </div>
 <!-- /.container -->

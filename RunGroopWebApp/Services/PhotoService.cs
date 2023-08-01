@@ -20,8 +20,9 @@ namespace RunGroopWebApp.Services
         }
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
         {
-            var uploadResult = new ImageUploadResult();
-            if(file.Length > 0)
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+
+            if (file.Length > 0 && allowedExtensions.Contains(Path.GetExtension(file.FileName).ToLower()))
             {
                 using var stream = file.OpenReadStream();
                 var uploadParams = new ImageUploadParams()
@@ -29,9 +30,12 @@ namespace RunGroopWebApp.Services
                     File = new FileDescription(file.FileName, stream),
                     Transformation = new Transformation().Height(500).Width(500).Crop("fill").Gravity("face")
                 };
-                uploadResult = await _cloudinary.UploadAsync(uploadParams);
-            }   
-            return uploadResult;
+                return await _cloudinary.UploadAsync(uploadParams);
+            }
+            else
+            {
+                throw new Exception("Unsupported image file. Only JPG, JPEG, and PNG formats are allowed.");
+            }
         }
 
         public Task<DeletionResult> DeletePhotoAsync(string publicId)

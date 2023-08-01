@@ -45,34 +45,54 @@ namespace RunGroopWebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateClubViewModel raceVM)
+        public async Task<IActionResult> Create(CreateRaceViewModel raceVM)
         {
             if (ModelState.IsValid)
             {
-                var result = await _photoService.AddPhotoAsync(raceVM.Image);
+                bool raceExists = _raceRepository.Exists(raceVM.Title, raceVM.Description);
 
-                var race = new RaceModel
+                if (!raceExists)
                 {
-                    Title = raceVM.Title,
-                    Description = raceVM.Description,
-                    Image = result.Url.ToString(),
-                    AppUserId = raceVM.AppUserId,
-                    Address = new AddressModel
+                    try
                     {
-                        Street = raceVM.Address.Street,
-                        City = raceVM.Address.City,
-                        State = raceVM.Address.State
+                        var result = await _photoService.AddPhotoAsync(raceVM.Image);
+
+                        var race = new RaceModel
+                        {
+                            Title = raceVM.Title,
+                            Description = raceVM.Description,
+                            Image = result.Url.ToString(),
+                            AppUserId = raceVM.AppUserId,
+                            Address = new AddressModel
+                            {
+                                Street = raceVM.Address.Street,
+                                City = raceVM.Address.City,
+                                State = raceVM.Address.State
+                            }
+                        };
+
+                        _raceRepository.Create(race);
+
+                        return RedirectToAction("Index");
                     }
-                };
-                _raceRepository.Create(race);
-                return RedirectToAction("Index");
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("", "An error occurred while creating the race.");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "The race already exists.");
+                }
             }
             else
             {
-                ModelState.AddModelError("", "Something went wrong");
+                ModelState.AddModelError("", "Please correct the errors in the form.");
             }
+
             return View(raceVM);
         }
+
 
         public async Task<IActionResult> Edit(int id)
         {

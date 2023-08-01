@@ -37,6 +37,8 @@
                         <label asp-for="ConfirmPassword" class="control-label"></label>
                         <input asp-for="ConfirmPassword" class="form-control" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        <span><small class="text-danger"> Password must contain at least 9 characters, 1 uppercase letter, one number and one special character.</small></span>
+
                     </div>
 
                     <div class="form-group text-center" style="margin-top:20px">

@@ -51,5 +51,10 @@ namespace RunGroopWebApp.Repository
             var saved = _context.SaveChanges();
             return saved >= 0 ? true : false;
         }
+
+        public bool Exists(string title, string description)
+        {
+            return _context.Races.Any(r => r.Title == title && r.Description == description);
+        }
     }
 }

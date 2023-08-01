@@ -23,6 +23,9 @@ namespace RunGroopWebApp.Controllers
         public void MapUserEdit(AppUserModel user, EditUserDashboardViewModel editVM, ImageUploadResult photoResult)
         {
             user.Id = editVM.Id;
+            user.Name = editVM.Name;
+            user.Surname = editVM.Surname;
+            user.AboutMe = editVM.AboutMe;
             user.Pace = editVM.Pace;
             user.Mileage = editVM.MileAge;
             user.ProfileImageUrl = photoResult.Url.ToString();
@@ -50,6 +53,9 @@ namespace RunGroopWebApp.Controllers
             var editUserVM = new EditUserDashboardViewModel()
             {
                 Id = curUserId,
+                Name = user.Name,
+                Surname = user.Surname,
+                AboutMe = user.AboutMe,
                 Pace = user.Pace,
                 MileAge = user.Mileage,
                 ProfileImageUrl = user.ProfileImageUrl,
@@ -66,18 +72,29 @@ namespace RunGroopWebApp.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong...");
                 return View("EditUserProfile", editVM);
-            }   
+            }
 
             AppUserModel user = await _dashboardRepository.GetByIdNoTracking(editVM.Id);
 
-            if (user.ProfileImageUrl == "" || user.ProfileImageUrl == null)
+            if (user.ProfileImageUrl == null)
             {
-                var photoResult = await _photoService.AddPhotoAsync(editVM.Image);
+                try
+                {
+                    var photoResult = await _photoService.AddPhotoAsync(editVM.Image);
 
-                MapUserEdit(user, editVM, photoResult); 
+                    if (photoResult == null)
+                    {
+                        ModelState.AddModelError("", "Unsupported image file. Only JPG, JPEG, and PNG formats are allowed.");
+                        return View("EditUserProfile", editVM);
+                    }
 
-                _dashboardRepository.Update(user);
-                return RedirectToAction("Index");
+                    MapUserEdit(user, editVM, photoResult);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View("EditUserProfile", editVM);
+                }
             }
             else
             {
@@ -87,15 +104,24 @@ namespace RunGroopWebApp.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Could not delete the photo");
+                    ModelState.AddModelError("", "Could not delete the photo: " + ex.Message);
                 }
 
-                var photoResult = await _photoService.AddPhotoAsync(editVM.Image);
-                MapUserEdit(user, editVM, photoResult);
-                _dashboardRepository.Update(user);
+                try
+                {
+                    var photoResult = await _photoService.AddPhotoAsync(editVM.Image);
 
-                return RedirectToAction("Index");
+                    MapUserEdit(user, editVM, photoResult);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View("EditUserProfile", editVM);
+                }
             }
+
+            _dashboardRepository.Update(user);
+            return RedirectToAction("Index");
         }
     }
 }
