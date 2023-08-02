@@ -25,6 +25,7 @@ namespace RunGroopWebApp.Controllers
             user.Id = editVM.Id;
             user.Name = editVM.Name;
             user.Surname = editVM.Surname;
+            user.PhoneNumber = editVM.PhoneNumber;
             user.AboutMe = editVM.AboutMe;
             user.Pace = editVM.Pace;
             user.Mileage = editVM.MileAge;
@@ -56,6 +57,7 @@ namespace RunGroopWebApp.Controllers
                 Name = user.Name,
                 Surname = user.Surname,
                 AboutMe = user.AboutMe,
+                PhoneNumber = user.PhoneNumber,
                 Pace = user.Pace,
                 MileAge = user.Mileage,
                 ProfileImageUrl = user.ProfileImageUrl,

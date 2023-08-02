@@ -14,6 +14,12 @@
         <span asp-validation-for="Surname" class="text-danger"></span>
     </div>
     <div class="form-group">
+        <label for="PhoneNumber">Phone Number</label>
+        <div class="input-group">
+            <input asp-for="PhoneNumber" class="form-control" placeholder="+1 555 123 4567" pattern="\+[0-9]+\s[0-9]{3}\s[0-9]{3}\s[0-9]{4}" />
+        </div>
+    </div>
+    <div class="form-group">
         <label asp-for="AboutMe">AboutMe</label>
         <input asp-for="AboutMe" class="form-control" placeholder="AboutMe" />
         <span asp-validation-for="AboutMe" class="text-danger"></span>

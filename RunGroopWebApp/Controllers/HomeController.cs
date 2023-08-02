@@ -27,7 +27,7 @@ namespace RunGroopWebApp.Controllers
             var homeViewModel = new HomeViewModel();
             try
             {
-                string url = "";
+                string url = "https://ipinfo.io/?token=4a86c31ed2c139";
                 var info = new WebClient().DownloadString(url);
                 ipInfo = JsonConvert.DeserializeObject<IPInfo>(info);
                 RegionInfo myRI1 = new RegionInfo(ipInfo.Country);

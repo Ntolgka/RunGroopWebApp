@@ -5,6 +5,7 @@
         public string? Name { get; set; }
         public string? Surname { get; set; }
         public string? AboutMe { get; set; }
+        public string? PhoneNumber { get; set; }
         public string Id { get; set; }  
         public int? Pace { get; set; }
         public int? MileAge { get; set; }
