@@ -78,13 +78,15 @@ namespace RunGroopWebApp.Controllers
             if (club == null) return View("Error");
             var clubVM = new EditClubViewModel
             {
+                Id = id,
+                AppUserId = club.AppUserId,
                 Title = club.Title,
                 Description = club.Description,
                 AdressId = club.AddressId,
                 Address = club.Address,
                 URL = club.Image,
                 ClubCategory = club.ClubCategory
-                
+
             };
 
             return View(clubVM);
@@ -107,11 +109,13 @@ namespace RunGroopWebApp.Controllers
                         ModelState.AddModelError("", "Could not delete photo.");
                         return View(clubVM);
                     }
+
                     var photoResult = await _photoService.AddPhotoAsync(clubVM.Image);
 
                     var club = new ClubModel
                     {
                         Id = id,
+                        AppUserId = clubVM.AppUserId,
                         Title = clubVM.Title,
                         Description = clubVM.Description,
                         Image = photoResult.Url.ToString(),
@@ -137,7 +141,7 @@ namespace RunGroopWebApp.Controllers
             }
             return View(clubVM);
         }
-        
+
         public async Task<IActionResult> Delete(int id)
         {
             var clubDetails = await _clubRepository.GetByIdAsync(id);

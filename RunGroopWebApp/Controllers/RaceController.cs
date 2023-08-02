@@ -93,13 +93,14 @@ namespace RunGroopWebApp.Controllers
             return View(raceVM);
         }
 
-
         public async Task<IActionResult> Edit(int id)
         {
             var race = await _raceRepository.GetByIdAsync(id);
             if (race == null) return View("Error");
             var raceVM = new EditRaceViewModel
             {
+                Id = id,
+                AppUserId = race.AppUserId,
                 Title = race.Title,
                 Description = race.Description,
                 AdressId = race.AddressId,
@@ -134,6 +135,7 @@ namespace RunGroopWebApp.Controllers
                     var race = new RaceModel
                     {
                         Id = id,
+                        AppUserId = raceVM.AppUserId,
                         Title = raceVM.Title,
                         Description = raceVM.Description,
                         Image = photoResult.Url.ToString(),

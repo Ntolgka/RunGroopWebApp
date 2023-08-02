@@ -52,11 +52,11 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <div class="d-flex align-items-center">
-                                <a class="nav-link text-black fw-bold" style="width:100px" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-controller="User" asp-action="Detail">@User.Identity.Name</a>
-                            
-                            <button class="bg-danger border-2 rounded">
-                                <a class="nav-link text-white fw-bold" style="width:100px" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
-                            </button>
+                                <a class="nav-link text-black fw-bold flex-grow-1" asp-route-id="@User.FindFirstValue(ClaimTypes.NameIdentifier)" asp-controller="User" asp-action="Detail">@User.Identity.Name</a>
+
+                                <a class="nav-link text-white fw-bold" asp-area="" asp-controller="Account" asp-action="Logout">
+                                    <button class="bg-danger border-2 rounded px-3 py-2">Logout</button>
+                                </a>
                             </div>
                         }
                         else
