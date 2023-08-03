@@ -8,4 +8,5 @@
 - On Developer Powershell:
 - `dotnet tool install --global dotnet-ef`
 - `dotnet ef database update`
+- And for the Seed Data: `dotnet run seeddata`
 - Finally run the application with `dotnet run`
