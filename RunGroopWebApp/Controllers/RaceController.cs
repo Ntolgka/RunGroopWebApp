@@ -62,6 +62,7 @@ namespace RunGroopWebApp.Controllers
                             Title = raceVM.Title,
                             Description = raceVM.Description,
                             Image = result.Url.ToString(),
+                            CreatedAt = DateTime.UtcNow,
                             AppUserId = raceVM.AppUserId,
                             Address = new AddressModel
                             {
@@ -138,16 +139,18 @@ namespace RunGroopWebApp.Controllers
                         AppUserId = raceVM.AppUserId,
                         Title = raceVM.Title,
                         Description = raceVM.Description,
+                        CreatedAt = userRace.CreatedAt,
+                        UpdatedAt = DateTime.UtcNow,
                         Image = photoResult.Url.ToString(),
                         AddressId = raceVM.AdressId,
                         Address = new AddressModel
-                        {
+                        {       
                             Street = raceVM.Address.Street,
                             City = raceVM.Address.City,
                             State = raceVM.Address.State
                         }       
-                    };
-
+                    };          
+                                
                     _raceRepository.Update(race);
 
                     return RedirectToAction("Index");

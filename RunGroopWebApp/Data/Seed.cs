@@ -22,36 +22,39 @@ namespace RunGroopWebApp.Data
                     {
                         new ClubModel()
                         {
-                            Title = "Running Club 1",
+                            Title = "Bursa Running Club 1",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first cinema",
                             ClubCategory = ClubCategory.City,
+                            CreatedAt = DateTime.UtcNow,
                             Address = new AddressModel()
                             {
-                                Street = "123 Main St",
-                                City = "Charlotte",
-                                State = "NC"
+                                Street = "Başaran",
+                                City = "Bursa",
+                                State = "Osmangazi"
                             }
                          },
                         new ClubModel()
                         {
-                            Title = "Running Club 2",
+                            Title = "Bursa Running Club 2",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first cinema",
                             ClubCategory = ClubCategory.Endurance,
+                            CreatedAt = DateTime.UtcNow,
                             Address = new AddressModel()
                             {
-                                Street = "123 Main St",
-                                City = "Charlotte",
-                                State = "NC"
+                                Street = "Beşevler",
+                                City = "Bursa",
+                                State = "Nilüfer"
                             }
                         },
                         new ClubModel()
                         {
-                            Title = "Running Club 3",
+                            Title = "Michigan Running Club 1",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first club",
                             ClubCategory = ClubCategory.Trail,
+                            CreatedAt = DateTime.UtcNow,
                             Address = new AddressModel()
                             {
                                 Street = "123 Main St",
@@ -61,10 +64,11 @@ namespace RunGroopWebApp.Data
                         },
                         new ClubModel()
                         {
-                            Title = "Running Club 3",
+                            Title = "Michigan Running Club 2",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first club",
                             ClubCategory = ClubCategory.City,
+                            CreatedAt = DateTime.UtcNow,
                             Address = new AddressModel()
                             {
                                 Street = "123 Main St",
@@ -82,23 +86,25 @@ namespace RunGroopWebApp.Data
                     {
                         new RaceModel()
                         {
-                            Title = "Running Race 1",
+                            Title = "Bursa Running Race 1",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first race",
                             RaceCategory = RaceCategory.Marathon,
+                            CreatedAt = DateTime.UtcNow,
                             Address = new AddressModel()
                             {
-                                Street = "123 Main St",
-                                City = "Charlotte",
-                                State = "NC"
+                                Street = "Beşevler",
+                                City = "Bursa",
+                                State = "Nilüfer"
                             }
                         },
                         new RaceModel()
                         {
-                            Title = "Running Race 2",
+                            Title = "Charlotte Running Race 1",
                             Image = "https://www.eatthis.com/wp-content/uploads/sites/4/2020/05/running.jpg?quality=82&strip=1&resize=640%2C360",
                             Description = "This is the description of the first race",
                             RaceCategory = RaceCategory.UltraMarathon,
+                            CreatedAt = DateTime.UtcNow,
                             AddressId = 5,
                             Address = new AddressModel()
                             {
@@ -127,36 +133,39 @@ namespace RunGroopWebApp.Data
 
                 //Users
                 var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<AppUserModel>>();
-                string adminUserEmail = "teddysmithdeveloper@gmail.com";
+                string adminUserEmail = "tolganalbant@gmail.com";
 
                 var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
                 if (adminUser == null)
                 {
                     var newAdminUser = new AppUserModel()
                     {
-                        UserName = "teddysmithdev",
+                        UserName = "tolganalbant",
                         Email = adminUserEmail,
+                        AboutMe = "This is the about me section of the admin",
                         EmailConfirmed = true,
                         Address = new AddressModel()
                         {
-                            Street = "123 Main St",
-                            City = "Charlotte",
-                            State = "NC"
+                            Street = "Başaran mahallesi",
+                            City = "Bursa",
+                            State = "Osmangazi"
                         }
                     };
                     await userManager.CreateAsync(newAdminUser, "Coding@1234?");
                     await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
                 }
 
-                string appUserEmail = "user@etickets.com";
+                string appUserEmail = "test@gmail.com";
 
                 var appUser = await userManager.FindByEmailAsync(appUserEmail);
                 if (appUser == null)
                 {
                     var newAppUser = new AppUserModel()
                     {
-                        UserName = "app-user",
+                        UserName = "test",
                         Email = appUserEmail,
+                        AboutMe = "This is the about me section of the user",
+                        PhoneNumber = "+12 345 678 9012",
                         EmailConfirmed = true,
                         Address = new AddressModel()
                         {

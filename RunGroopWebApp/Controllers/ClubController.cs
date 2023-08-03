@@ -55,6 +55,7 @@ namespace RunGroopWebApp.Controllers
                     Title = clubVM.Title,
                     Description = clubVM.Description,
                     Image = result.Url.ToString(),
+                    CreatedAt = DateTime.UtcNow,
                     AppUserId = clubVM.AppUserId,
                     Address = new AddressModel
                     {
@@ -118,6 +119,8 @@ namespace RunGroopWebApp.Controllers
                         AppUserId = clubVM.AppUserId,
                         Title = clubVM.Title,
                         Description = clubVM.Description,
+                        CreatedAt = userClub.CreatedAt,
+                        UpdatedAt = DateTime.UtcNow,
                         Image = photoResult.Url.ToString(),
                         AddressId = clubVM.AdressId,
                         Address = new AddressModel

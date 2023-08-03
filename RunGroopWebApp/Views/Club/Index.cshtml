@@ -1,9 +1,5 @@
-﻿@model IEnumerable<ClubModel>
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using RunGroopWebApp.Helpers;
+@model IEnumerable<ClubModel>
 
 <div class="album py-5 bg-body-tertiary">
 
@@ -20,14 +16,24 @@
 
             @foreach (var item in Model)
             {
+                var timeHelper = new TimeHelper();
+                string timeAgo = timeHelper.GetTimeAgoString(item.CreatedAt);
+
                 <div class="col">
                     <div class="card shadow-sm">
                         <img class="card-img-top" src="@item.Image" width="100%" height="300" alt="Card image cap">
-                        <div class="card-body" style="height:200px">
-                            <h3 class="card-text"> @item.Title </h3>
-                            <p class="card-text"> @item.Description </p>
-                            <div class="d-flex justify-content-between align-bottom">
-                                <div class="btn-group">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h3 class="card-text text-center"> @item.Title </h3>
+                                </li>
+                                <li class="list-group-item">
+                                    <p class="card-text text-center"> @item.Description </p>
+                                </li>
+                            </ul>
+                            
+                            <div class="d-flex justify-content-between">
+                                <div class="btn-group text-center">
                                     <a asp-controller="CLub" asp-action="Detail" asp-route-id="@item.Id" type="button" class="btn btn-sm btn-outline-secondary">View</a>
 
                                     @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
@@ -37,8 +43,11 @@
                                     }
                                     
                                 </div>
-                                <small class="text-body-secondary">@item.ClubCategory</small>
+                                    <small class="text-body-secondary">Category: @item.ClubCategory</small>
                             </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <small class="text-body-secondary">Created: @timeAgo</small>
                         </div>
                     </div>
                 </div>
